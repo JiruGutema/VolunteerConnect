@@ -1,1 +1,52 @@
 # VolunteerConnect
+
+## Project Overview
+VolunteerConnect is a local volunteering hub that connects volunteers with organizations seeking assistance. The platform allows organizations to post volunteer opportunities, and users can browse and apply for them. This project includes a REST API backend, authentication, and a mobile frontend built with Jetpack Compose and Flutter.
+
+## 👥 Team Members
+| Full Name | Student ID |
+|-----------|-----------|
+| [Your Name] | [Your ID] |
+
+## Features
+### 1. Volunteer Opportunities (CRUD)
+- Organizations can **Create, Read, Update, and Delete** volunteer opportunities.
+- Volunteers can view available events and apply.
+
+### 2. Volunteer Applications (CRUD)
+- Volunteers can **Apply, View, Update, and Cancel** their applications.
+- Organizations can manage applications for their events.
+
+### 3. Authentication & Authorization
+- **User Roles:**
+  - **Volunteers**: Can browse and apply for opportunities.
+  - **Organizations**: Can post and manage volunteer events.
+  - **Admins (Optional)**: Can manage users and events.
+- Secure authentication using **JWT/OAuth**.
+
+### 4. Backend (REST API)
+- Developed using **[Flask/Django/FastAPI]**.
+- Serves both the web and mobile frontend.
+- Implements authentication, authorization, and CRUD operations.
+
+### 5. Testing
+- **Widget Testing** (Jetpack Compose & Flutter UI components)
+- **Unit Testing** (API endpoints and logic)
+- **Integration Testing** (Ensuring API and frontend work together)
+
+## 🛠️ Tech Stack
+### Backend
+- **[Flask/Django/FastAPI]** (REST API)
+- **PostgreSQL/MySQL/SQLite** (Database)
+- **JWT/OAuth** (Authentication)
+
+### Frontend
+- **Jetpack Compose (Kotlin)** (First mobile version)
+- **Flutter (Dart)** (Recreated mobile version)
+
+## 🔧 Setup & Installation
+### Backend Setup
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/VolunteerConnect.git
+   cd VolunteerConnect
