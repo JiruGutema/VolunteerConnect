@@ -37,7 +37,7 @@ VolunteerConnect is a local volunteering hub that connects volunteers with organ
 - **Unit Testing** (API endpoints and logic)
 - **Integration Testing** (Ensuring API and frontend work together)
 
-## 🛠️ Tech Stack
+## Tech Stack
 ### Backend
 - **Flask** (REST API)
 - **MySQL** (Database)
