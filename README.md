@@ -40,7 +40,7 @@ VolunteerConnect is a local volunteering hub that connects volunteers with organ
 ## 🛠️ Tech Stack
 ### Backend
 - **Flask** (REST API)
-- **MySQL (Database)
+- **MySQL** (Database)
 - **JWT/OAuth** (Authentication)
 
 ### Frontend
