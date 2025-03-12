@@ -28,7 +28,7 @@ VolunteerConnect is a local volunteering hub that connects volunteers with organ
 - Secure authentication using **JWT/OAuth**.
 
 ### 4. Backend (REST API)
-- Developed using **[Flask/Django/FastAPI]**.
+- Developed using **FastAPI**.
 - Serves both the web and mobile frontend.
 - Implements authentication, authorization, and CRUD operations.
 
@@ -39,17 +39,10 @@ VolunteerConnect is a local volunteering hub that connects volunteers with organ
 
 ## 🛠️ Tech Stack
 ### Backend
-- **[Flask/Django/FastAPI]** (REST API)
-- **PostgreSQL/MySQL/SQLite** (Database)
+- **Flask** (REST API)
+- **MySQL (Database)
 - **JWT/OAuth** (Authentication)
 
 ### Frontend
 - **Jetpack Compose (Kotlin)** (First mobile version)
 - **Flutter (Dart)** (Recreated mobile version)
-
-## 🔧 Setup & Installation
-### Backend Setup
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/VolunteerConnect.git
-   cd VolunteerConnect
