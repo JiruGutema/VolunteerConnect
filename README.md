@@ -29,7 +29,7 @@ VolunteerConnect is a local volunteering hub that connects volunteers with organ
 
 ### 4. Backend (REST API)
 - Developed using **Flask**.
-- Serves both the web and mobile front end.
+- Serves the mobile front end.
 - Implements authentication, authorization, and CRUD operations.
 
 ### 5. Testing
