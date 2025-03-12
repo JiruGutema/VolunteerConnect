@@ -28,8 +28,8 @@ VolunteerConnect is a local volunteering hub that connects volunteers with organ
 - Secure authentication using **JWT/OAuth**.
 
 ### 4. Backend (REST API)
-- Developed using **FastAPI**.
-- Serves both the web and mobile frontend.
+- Developed using **Flask**.
+- Serves both the web and mobile front end.
 - Implements authentication, authorization, and CRUD operations.
 
 ### 5. Testing
