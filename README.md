@@ -4,9 +4,12 @@
 VolunteerConnect is a local volunteering hub that connects volunteers with organizations seeking assistance. The platform allows organizations to post volunteer opportunities, and users can browse and apply for them. This project includes a REST API backend, authentication, and a mobile frontend built with Jetpack Compose and Flutter.
 
 ## 👥 Team Members
-| Full Name | Student ID |
-|-----------|-----------|
-| [Your Name] | [Your ID] |
+| Full Name        |   Student ID   | Section
+|------------------|----------------|--------
+| Jiru Gutema      |  UGR/5902/15   |    4
+| Abigiya Daniel   |  UGR/5110/15   |    4
+| Ashenafi Godana  |  UGR/7906/14   |    4
+| Blen Debebe      |  UGR/5297/15   |    4
 
 ## Features
 ### 1. Volunteer Opportunities (CRUD)
