@@ -10,6 +10,7 @@ VolunteerConnect is a local volunteering hub that connects volunteers with organ
 | Abigiya Daniel   |  UGR/5110/15   |    4
 | Ashenafi Godana  |  UGR/7906/14   |    4
 | Blen Debebe      |  UGR/5297/15   |    4
+| Anansi Sime      |  UGR/9691/15   |    2
 
 ## Features
 ### 1. Volunteer Opportunities (CRUD)
