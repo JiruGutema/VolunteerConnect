@@ -47,3 +47,40 @@ VolunteerConnect is a local volunteering hub that connects volunteers with organ
 ### Frontend
 - **Jetpack Compose (Kotlin)** (First mobile version)
 - **Flutter (Dart)** (Recreated mobile version)
+
+
+## 🛠 Backend Setup & Installation
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/AshenafiTech/VolunteerConnect.git
+cd VolunteerConnect
+```
+
+### 2️⃣ Create a Virtual Environment
+```bash
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+```
+
+### 3️⃣ Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4️⃣ Configure Environment Variables
+Create a `.env` file in the root directory:
+```ini
+SECRET_KEY=your-secret-key
+DEBUG=True
+DATABASE_URL=postgres://user:password@localhost:5432/volunteerconnect
+```
+
+### 5️⃣ Apply Migrations & Start Server
+```bash
+python manage.py migrate
+python manage.py runserver
+```
+Access the API at: `http://127.0.0.1:8000/`
+
+## 📜 API Documentation
+Run the server and visit `http://127.0.0.1:8000/docs/` to see the Swagger UI.
