@@ -72,7 +72,7 @@ Create a `.env` file in the root directory:
 ```ini
 SECRET_KEY=your-secret-key
 DEBUG=True
-DATABASE_URL=postgres://user:password@localhost:5432/volunteerconnect
+DATABASE_URL=mysql://user:password@localhost:3306/volunteerconnect
 ```
 
 ### 5️⃣ Apply Migrations & Start Server
