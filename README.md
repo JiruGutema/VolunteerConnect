@@ -1,4 +1,4 @@
-# VolunteerConnect
+*# VolunteerConnect
 
 ## Project Overview
 VolunteerConnect is a local volunteering hub that connects volunteers with organizations seeking assistance. The platform allows organizations to post volunteer opportunities, and users can browse and apply for them. This project includes a REST API backend, authentication, and a mobile frontend built with Jetpack Compose and Flutter.
@@ -30,18 +30,17 @@ VolunteerConnect is a local volunteering hub that connects volunteers with organ
 - Secure authentication using **JWT/OAuth**.
 
 ### 4. Backend (REST API)
-- Developed using **Django**.
+- Developed using **Express.js**.
 - Serves the mobile front end.
 - Implements authentication, authorization, and CRUD operations.
 
 ### 5. Testing
-- **Widget Testing** (Jetpack Compose & Flutter UI components)
 - **Unit Testing** (API endpoints and logic)
 - **Integration Testing** (Ensuring API and frontend work together)
 
 ## Tech Stack
 ### Backend
-- **Django** (REST API)
+- **Express.js** (REST API)
 - **MySQL** (Database)
 - **JWT/OAuth** (Authentication)
 
@@ -50,38 +49,3 @@ VolunteerConnect is a local volunteering hub that connects volunteers with organ
 - **Flutter (Dart)** (Recreated mobile version)
 
 
-## 🛠 Backend Setup & Installation
-### 1️⃣ Clone the Repository
-```bash
-git clone https://github.com/AshenafiTech/VolunteerConnect.git
-cd VolunteerConnect
-```
-
-### 2️⃣ Create a Virtual Environment
-```bash
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-```
-
-### 3️⃣ Install Dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 4️⃣ Configure Environment Variables
-Create a `.env` file in the root directory:
-```ini
-SECRET_KEY=your-secret-key
-DEBUG=True
-DATABASE_URL=mysql://user:password@localhost:3306/volunteerconnect
-```
-
-### 5️⃣ Apply Migrations & Start Server
-```bash
-python manage.py migrate
-python manage.py runserver
-```
-Access the API at: `http://127.0.0.1:8000/`
-
-## 📜 API Documentation
-Run the server and visit `http://127.0.0.1:8000/docs/` to see the Swagger UI.
