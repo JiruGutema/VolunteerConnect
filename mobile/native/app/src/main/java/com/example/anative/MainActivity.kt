@@ -38,7 +38,11 @@ fun VolunteerApp() {
         composable("post") {
             PostScreen { title, description, location ->
                 // Handle post logic
+                navController.navigate("postList")
             }
+        }
+        composable("postList") {
+            PostListScreen(posts = mockPosts)
         }
     }
 }
