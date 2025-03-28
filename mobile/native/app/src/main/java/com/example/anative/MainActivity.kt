@@ -3,45 +3,46 @@ package com.example.anative
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.*
 import com.example.anative.ui.theme.NativeTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             NativeTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                VolunteerApp()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    NativeTheme {
-        Greeting("Android")
+fun VolunteerApp() {
+    val navController = rememberNavController()
+    NavHost(navController, startDestination = "login") {
+        composable("login") {
+            LoginScreen { email, password ->
+                // Handle login logic
+                navController.navigate("signup")
+            }
+        }
+        composable("signup") {
+            SignupScreen { username, email, password ->
+                // Handle signup logic
+                navController.navigate("post")
+            }
+        }
+        composable("post") {
+            PostScreen { title, description, location ->
+                // Handle post logic
+                navController.navigate("postList")
+            }
+        }
+        composable("postList") {
+            PostListScreen(posts = mockPosts)
+        }
     }
 }
