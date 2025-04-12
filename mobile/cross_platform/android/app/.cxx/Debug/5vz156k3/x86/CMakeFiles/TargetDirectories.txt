@@ -1,0 +1,2 @@
+/home/jiren/Desktop/Workspace/VolunteerConnect/mobile/cross_platform/android/app/.cxx/Debug/5vz156k3/x86/CMakeFiles/edit_cache.dir
+/home/jiren/Desktop/Workspace/VolunteerConnect/mobile/cross_platform/android/app/.cxx/Debug/5vz156k3/x86/CMakeFiles/rebuild_cache.dir
