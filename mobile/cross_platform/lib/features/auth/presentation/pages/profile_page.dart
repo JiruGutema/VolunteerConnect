@@ -1,37 +1,57 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: VolunteerProfileScreen(),
-    debugShowCheckedModeBanner: false,
-  ));
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class VolunteerProfileScreen extends StatelessWidget {
+class User {
+  final String name;
+  final String role;
+  final String email;
+  final String phone;
+  final String city;
+  final String bio;
+  final String attendedEvents;
+  final String hoursVolunteered;
+  final List<String> skills;
+  final List<String> interests;
+
+  User({
+    required this.name,
+    required this.role,
+    required this.email,
+    required this.city,
+    required this.phone,
+    required this.bio,
+    required this.attendedEvents,
+    required this.hoursVolunteered,
+    required this.skills,
+    required this.interests,
+  });
+}
+
+final user = User(
+  name: 'Jiru Gutema',
+  city: 'New York NY',
+  role: 'Volunter',
+  email: 'Jethior1@gmail.com',
+  phone: '+251978556748',
+  bio: 'Lorem ipsum dolor sit amet , consectectur adipiscing sed do elit',
+  attendedEvents: '12',
+  hoursVolunteered: '48',
+  skills: ['Teaching', 'First Aid', 'Gardening'],
+  interests: ['Enviroment', 'Elderly Care'],
+);
+
+class _ProfilePageState extends State<ProfilePage> {
+  bool _obscurePassword = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 3,
-        
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.explore), label: 'Explore'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.assignment), label: 'My Application'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-      ),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: const Text("Profile",
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-        centerTitle: true,
-      ),
       backgroundColor: const Color(0xFFF5F5F5),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -48,18 +68,18 @@ class VolunteerProfileScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Column(
-                  children: const [
+                  children: [
                     CircleAvatar(
                       radius: 60,
                       backgroundColor: Colors.black,
                       child: Icon(Icons.person, size: 70, color: Colors.white),
                     ),
                     SizedBox(height: 10),
-                    Text('John Doe',
+                    Text(user.name,
                         style: TextStyle(
                             fontSize: 28, fontWeight: FontWeight.bold)),
                     Text(
-                      'Volunteer',
+                      user.role,
                       style: TextStyle(
                           color: Colors.grey, fontWeight: FontWeight.bold),
                     ),
@@ -80,7 +100,7 @@ class VolunteerProfileScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      children: const [
+                      children: [
                         Expanded(
                           child: Text(
                             'Personal Information',
@@ -88,55 +108,75 @@ class VolunteerProfileScreen extends StatelessWidget {
                                 fontWeight: FontWeight.bold, fontSize: 24),
                           ),
                         ),
-                        Icon(
-                          Icons.edit,
-                          color: Colors.blue,
+                        TextButton(
+                          onPressed: () {
+                            print("edited successfully");
+                          },
+                          style: TextButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              padding: EdgeInsets.all(0)),
+                          child: Icon(
+                            Icons.edit,
+                            color: Colors.blue,
+                            size: 24,
+                          ),
                         ),
                         SizedBox(width: 8),
-                        Icon(Icons.delete, color: Colors.red),
+                        TextButton(
+                          onPressed: () {
+                            print("deleted successfully");
+                          },
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.white,
+                          ),
+                          child: Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                            size: 24,
+                          ),
+                        )
                       ],
                     ),
                     const SizedBox(height: 16),
-                    Row(children: const [
+                    Row(children: [
                       Icon(
                         Icons.email_outlined,
                         size: 20,
                         color: Color.fromARGB(255, 123, 123, 123),
                       ),
                       SizedBox(width: 8),
-                      Text('johnDoe@gmail.com'),
+                      Text(user.email),
                     ]),
                     const SizedBox(height: 8),
-                    Row(children: const [
+                    Row(children: [
                       Icon(
                         Icons.location_on_outlined,
                         size: 20,
                         color: Color.fromARGB(255, 123, 123, 123),
                       ),
                       SizedBox(width: 8),
-                      Text('New York, NY'),
+                      Text(user.city),
                     ]),
                     const SizedBox(height: 8),
-                    Row(children: const [
+                    Row(children: [
                       Icon(
                         Icons.phone,
                         size: 20,
                         color: Color.fromARGB(255, 123, 123, 123),
                       ),
                       SizedBox(width: 8),
-                      Text('+251 91 234 5627'),
+                      Text(user.phone),
                     ]),
                     const SizedBox(height: 16),
-                    const Text(
-                      'Bio',
+                    Text(
+                      "Bio",
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: Color.fromARGB(255, 90, 90, 90)),
                     ),
                     const SizedBox(height: 4),
-                    const Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing sed do elit.'),
+                    Text(user.bio)
                   ],
                 ),
               ),
@@ -159,12 +199,12 @@ class VolunteerProfileScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold, fontSize: 24)),
                     const SizedBox(height: 16),
                     Row(
-                      children: const [
+                      children: [
                         Icon(Icons.calendar_today,
                             color: Colors.blue, size: 20),
                         SizedBox(width: 8),
                         Column(children: [
-                          Text('12',
+                          Text(user.attendedEvents,
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           SizedBox(width: 4),
                           Text(
@@ -176,7 +216,7 @@ class VolunteerProfileScreen extends StatelessWidget {
                         Icon(Icons.access_time, color: Colors.blue, size: 20),
                         SizedBox(width: 8),
                         Column(children: [
-                          Text('48',
+                          Text(user.hoursVolunteered,
                               style: TextStyle(fontWeight: FontWeight.bold)),
                           SizedBox(width: 4),
                           Text(
@@ -194,7 +234,7 @@ class VolunteerProfileScreen extends StatelessWidget {
                     const SizedBox(height: 8),
                     Wrap(
                       spacing: 8,
-                      children: ['Teaching', 'First Aid', 'Gardening']
+                      children: user.skills
                           .map((skill) => Chip(
                                 label: Text(skill),
                                 labelStyle: TextStyle(
@@ -214,7 +254,7 @@ class VolunteerProfileScreen extends StatelessWidget {
                     const SizedBox(height: 8),
                     Wrap(
                       spacing: 8,
-                      children: ['Environment', 'Elderly Care']
+                      children: user.interests
                           .map((interest) => Chip(
                                 label: Text(interest),
                                 labelStyle: TextStyle(color: Colors.blue),
@@ -228,8 +268,6 @@ class VolunteerProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-         
-          
           ],
         ),
       ),
