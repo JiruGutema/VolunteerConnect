@@ -1,6 +1,7 @@
+-- Active: 1737887074325@@127.0.0.1@3306
 -- USER TABLE
 
-CREATE TABLE Users (
+CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
@@ -17,7 +18,7 @@ CREATE TABLE Users (
 CREATE TABLE user_skills (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
-    skill VARCHAR(50),
+    skill VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
@@ -29,23 +30,26 @@ CREATE TABLE user_interests (
 );
 
 -- Applications
-
 CREATE TABLE applications (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
-    status ENUM('Pending', 'Approved', 'Canceled') NOT NULL,
+    event_id INT,  -- Now matches events.id type
+    status ENUM('Pending', 'Approved', 'Canceled') NOT NULL DEFAULT 'Pending',
     applied_date DATE NOT NULL,
     title VARCHAR(100) NOT NULL,
     organization VARCHAR(100) NOT NULL,
     event_date DATE NOT NULL,
     event_time VARCHAR(20) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE
 );
 
--- Events
 
+-- Events
 CREATE TABLE events (
-  id VARCHAR PRIMARY KEY (id(255)),
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  uuid VARCHAR(255) NOT NULL,
+  org_id INT,
   title TEXT,
   subtitle TEXT,
   category TEXT,
