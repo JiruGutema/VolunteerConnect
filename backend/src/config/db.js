@@ -12,3 +12,4 @@ const dbConnection = mysql2.createPool({
 
 
 module.exports = dbConnection.promise();
+// this is the new way to export the connection
