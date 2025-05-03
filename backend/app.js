@@ -10,7 +10,9 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 const userRoutes = require("./src/routes/user.routes")
+const appRoutes = require("./src/routes/application.route");
 app.use("/api", userRoutes);
+app.use("/api", appRoutes);
 
 
 async function start() {
