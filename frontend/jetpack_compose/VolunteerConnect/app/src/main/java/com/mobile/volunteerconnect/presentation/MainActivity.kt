@@ -1,4 +1,4 @@
-package com.mobile.volunteerconnect.presentation
+package com.mobile.volunteerconnect
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
