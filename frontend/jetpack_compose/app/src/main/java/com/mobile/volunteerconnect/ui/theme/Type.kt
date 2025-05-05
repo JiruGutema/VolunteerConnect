@@ -1,4 +1,4 @@
-package com.example.houserental.ui.theme
+package com.mobile.volunteerconnect.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
