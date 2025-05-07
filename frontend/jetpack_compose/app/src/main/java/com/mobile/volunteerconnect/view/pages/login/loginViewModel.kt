@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mobile.volunteerconnect.data.model.LoginRequest
+import com.mobile.volunteerconnect.data.preferences.UserPreferences
 import com.mobile.volunteerconnect.data.repository.LoginRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -13,8 +14,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val repository: LoginRepository
+    private val repository: LoginRepository,
+    private val userPreferences: UserPreferences
 ) : ViewModel() {
+
     var uiState by mutableStateOf(LoginUiState())
         private set
 
@@ -37,14 +40,31 @@ class LoginViewModel @Inject constructor(
                     )
                 )
 
-                uiState = uiState.copy(
-                    isLoading = false,
-                    isSuccess = true,
-                    token = response.token,
-                    user = response.user,
+                val responseBody = response.body()
+                val user = responseBody?.user
+                val token = responseBody?.token
 
-                )
-                print(uiState.token)
+                if (response.isSuccessful && user != null && token != null) {
+
+                    userPreferences.saveUserData(
+                        token = token,
+                        name = user.name,
+                        email = user.email,
+                        role = user.role
+                    )
+
+                    uiState = uiState.copy(
+                        isLoading = false,
+                        isSuccess = true,
+                        token = token,
+                        user = user
+                    )
+                } else {
+                    uiState = uiState.copy(
+                        isLoading = false,
+                        error = response.message()
+                    )
+                }
 
             } catch (e: Exception) {
                 uiState = uiState.copy(
