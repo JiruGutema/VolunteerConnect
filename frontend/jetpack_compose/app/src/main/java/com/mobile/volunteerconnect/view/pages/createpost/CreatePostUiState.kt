@@ -11,7 +11,7 @@ data class CreatePostUiState(
     val image: String = "",
     val description: String = "",
     val requirements: List<String> = listOf(""),
-    val additionalInfo: Map<String, String> = mapOf("" to ""),
+    val additionalInfo: String = "",
     val contactPhone: String = "",
     val contactEmail: String = "",
     val contactTelegram: String = "",

@@ -33,6 +33,7 @@ class CreatePostViewModel @Inject constructor(
     fun updateRequirements(requirements: List<String>) = _uiState.update { it.copy(requirements = requirements) }
     fun updateContactPhone(contactPhone: String) = _uiState.update { it.copy(contactPhone = contactPhone) }
     fun updateContactEmail(contactEmail: String) = _uiState.update { it.copy(contactEmail = contactEmail) }
+    fun updateAdditionalInfo(additionalInfo: String) = _uiState.update { it.copy(additionalInfo = additionalInfo) }
     fun updateContactTelegram(contactTelegram: String) = _uiState.update { it.copy(contactTelegram = contactTelegram) }
 
     fun createEvent() {

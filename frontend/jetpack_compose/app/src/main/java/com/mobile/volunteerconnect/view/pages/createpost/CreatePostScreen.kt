@@ -15,8 +15,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 
+
 @SuppressLint("StateFlowValueCalledInComposition")
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun CreatePostScreen(
     navController: NavController,
@@ -24,7 +25,6 @@ fun CreatePostScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val scrollState = rememberScrollState()
-    val shape = MaterialTheme.shapes.medium
     val colors = MaterialTheme.colorScheme
 
     LaunchedEffect(uiState.isSuccess) {
@@ -35,25 +35,21 @@ fun CreatePostScreen(
 
     Scaffold(
         topBar = {
-            CenterAlignedTopAppBar(
+            TopAppBar(
                 title = {
                     Text(
-                        "Create New Event",
-                        style = MaterialTheme.typography.headlineSmall
+                        "Create New Post",
+                        style = MaterialTheme.typography.titleLarge
                     )
                 },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             Icons.Default.ArrowBack,
-                            contentDescription = "Back",
-                            tint = colors.onSurface
+                            contentDescription = "Back"
                         )
                     }
-                },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = colors.surfaceColorAtElevation(3.dp)
-                )
+                }
             )
         }
     ) { padding ->
@@ -62,203 +58,393 @@ fun CreatePostScreen(
                 .padding(padding)
                 .fillMaxSize()
                 .verticalScroll(scrollState)
+                .padding(horizontal = 16.dp)
         ) {
-            Column(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-            ) {
-                // Event Details Section
-                Text(
-                    text = "Event Details",
-                    style = MaterialTheme.typography.titleMedium,
-                    color = colors.primary,
-                    modifier = Modifier.padding(bottom = 8.dp)
+            Text(
+                text = "Fill in the details for your volunteer Activity",
+                style = MaterialTheme.typography.bodyMedium,
+                color = colors.onSurface.copy(alpha = 0.6f),
+                modifier = Modifier.padding(bottom = 24.dp)
+            )
+
+            // Event Title
+            Text(
+                text = "Event Title",
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.padding(bottom = 4.dp)
+            )
+            OutlinedTextField(
+                value = uiState.title,
+                onValueChange = viewModel::updateTitle,
+                placeholder = { Text("Enter event title") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                shape = MaterialTheme.shapes.small,
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = colors.surface,
+                    unfocusedContainerColor = colors.surface
                 )
+            )
 
-                OutlinedTextField(
-                    value = uiState.title,
-                    onValueChange = viewModel::updateTitle,
-                    label = { Text("Title*") },
-                    modifier = Modifier.fillMaxWidth(),
-                    singleLine = true,
-                    shape = shape,
-                    colors = OutlinedTextFieldDefaults.colors(
-                        focusedBorderColor = colors.primary,
-                        unfocusedBorderColor = colors.outline
-                    )
+            Spacer(modifier = Modifier.height(16.dp))
+            // Event Title
+            Text(
+                text = "Sub Title",
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.padding(bottom = 4.dp)
+            )
+            OutlinedTextField(
+                value = uiState.subtitle,
+                onValueChange = viewModel::updateSubtitle,
+                placeholder = { Text("Enter event Subtitle") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                shape = MaterialTheme.shapes.small,
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = colors.surface,
+                    unfocusedContainerColor = colors.surface
                 )
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                OutlinedTextField(
-                    value = uiState.subtitle,
-                    onValueChange = viewModel::updateSubtitle,
-                    label = { Text("Subtitle*") },
-                    modifier = Modifier.fillMaxWidth(),
-                    singleLine = true,
-                    shape = shape
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            // Description
+            Text(
+                text = "Description",
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.padding(bottom = 4.dp)
+            )
+            OutlinedTextField(
+                value = uiState.description,
+                onValueChange = viewModel::updateDescription,
+                placeholder = { Text("Describe the volunteer opportunity") },
+                modifier = Modifier.fillMaxWidth(),
+                minLines = 4,
+                shape = MaterialTheme.shapes.small,
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = colors.surface,
+                    unfocusedContainerColor = colors.surface
                 )
+            )
 
-                Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-                OutlinedTextField(
-                    value = uiState.category,
-                    onValueChange = viewModel::updateCategory,
-                    label = { Text("Category*") },
-                    modifier = Modifier.fillMaxWidth(),
-                    singleLine = true,
-                    shape = shape
+            // Location
+            Text(
+                text = "Location",
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.padding(bottom = 4.dp)
+            )
+            OutlinedTextField(
+                value = uiState.location,
+                onValueChange = viewModel::updateLocation,
+                placeholder = { Text("Enter event location") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                shape = MaterialTheme.shapes.small,
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = colors.surface,
+                    unfocusedContainerColor = colors.surface
                 )
+            )
 
-                Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    OutlinedTextField(
-                        value = uiState.date,
-                        onValueChange = viewModel::updateDate,
-                        label = { Text("Date*") },
-                        modifier = Modifier.weight(1f),
-                        placeholder = { Text("YYYY-MM-DD") },
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                        shape = shape
-                    )
-
-                    OutlinedTextField(
-                        value = uiState.time,
-                        onValueChange = viewModel::updateTime,
-                        label = { Text("Time*") },
-                        modifier = Modifier.weight(1f),
-                        placeholder = { Text("HH:MM") },
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                        shape = shape
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(12.dp))
-
+            // Date
+            Text(
+                text = "Date",
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.padding(bottom = 4.dp)
+            )
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(
-                    value = uiState.location,
-                    onValueChange = viewModel::updateLocation,
-                    label = { Text("Location*") },
-                    modifier = Modifier.fillMaxWidth(),
-                    singleLine = true,
-                    shape = shape
-                )
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                OutlinedTextField(
-                    value = uiState.spotsLeft,
-                    onValueChange = viewModel::updateSpotsLeft,
-                    label = { Text("Available Spots*") },
-                    modifier = Modifier.fillMaxWidth(),
+                    value = uiState.date.split("-").getOrElse(2) { "" },
+                    onValueChange = { day ->
+                        val parts = uiState.date.split("-")
+                        val newDate = "${parts.getOrElse(0) { "" }}-${parts.getOrElse(1) { "" }}-$day"
+                        viewModel.updateDate(newDate)
+                    },
+                    placeholder = { Text("Day") },
+                    modifier = Modifier.weight(1f),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    shape = shape
+                    shape = MaterialTheme.shapes.small,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = colors.surface,
+                        unfocusedContainerColor = colors.surface
+                    )
                 )
-
-                Spacer(modifier = Modifier.height(12.dp))
-
                 OutlinedTextField(
-                    value = uiState.image,
-                    onValueChange = viewModel::updateImage,
-                    label = { Text("Image URL") },
-                    modifier = Modifier.fillMaxWidth(),
+                    value = uiState.date.split("-").getOrElse(1) { "" },
+                    onValueChange = { month ->
+                        val parts = uiState.date.split("-")
+                        val newDate = "${parts.getOrElse(0) { "" }}-$month-${parts.getOrElse(2) { "" }}"
+                        viewModel.updateDate(newDate)
+                    },
+                    placeholder = { Text("Month") },
+                    modifier = Modifier.weight(1f),
                     singleLine = true,
-                    shape = shape
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    shape = MaterialTheme.shapes.small,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = colors.surface,
+                        unfocusedContainerColor = colors.surface
+                    )
                 )
-
-                Spacer(modifier = Modifier.height(12.dp))
-
                 OutlinedTextField(
-                    value = uiState.description,
-                    onValueChange = viewModel::updateDescription,
-                    label = { Text("Description*") },
-                    modifier = Modifier.fillMaxWidth(),
-                    minLines = 4,
-                    shape = shape
-                )
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                OutlinedTextField(
-                    value = uiState.requirements.joinToString(","),
-                    onValueChange = { viewModel.updateRequirements(it.split(",")) },
-                    label = { Text("Requirements (comma separated)") },
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = shape
-                )
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                // Contact Information Section
-                Text(
-                    text = "Contact Information",
-                    style = MaterialTheme.typography.titleMedium,
-                    color = colors.primary,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-
-                OutlinedTextField(
-                    value = uiState.contactPhone,
-                    onValueChange = viewModel::updateContactPhone,
-                    label = { Text("Contact Phone*") },
-                    modifier = Modifier.fillMaxWidth(),
+                    value = uiState.date.split("-").getOrElse(0) { "" },
+                    onValueChange = { year ->
+                        val parts = uiState.date.split("-")
+                        val newDate = "$year-${parts.getOrElse(1) { "" }}-${parts.getOrElse(2) { "" }}"
+                        viewModel.updateDate(newDate)
+                    },
+                    placeholder = { Text("Year") },
+                    modifier = Modifier.weight(1f),
                     singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-                    shape = shape
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    shape = MaterialTheme.shapes.small,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = colors.surface,
+                        unfocusedContainerColor = colors.surface
+                    )
                 )
+            }
 
-                Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
+            // Time
+            Text(
+                text = "Time",
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.padding(bottom = 4.dp)
+            )
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 OutlinedTextField(
-                    value = uiState.contactEmail,
-                    onValueChange = viewModel::updateContactEmail,
-                    label = { Text("Contact Email*") },
-                    modifier = Modifier.fillMaxWidth(),
+                    value = uiState.time.split(":").getOrElse(0) { "" },
+                    onValueChange = { hours ->
+                        val parts = uiState.time.split(":")
+                        val newTime = "$hours:${parts.getOrElse(1) { "" }}"
+                        viewModel.updateTime(newTime)
+                    },
+                    placeholder = { Text("Start") },
+                    modifier = Modifier.weight(1f),
                     singleLine = true,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
-                    shape = shape
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    shape = MaterialTheme.shapes.small,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = colors.surface,
+                        unfocusedContainerColor = colors.surface
+                    )
                 )
-
-                Spacer(modifier = Modifier.height(12.dp))
-
                 OutlinedTextField(
-                    value = uiState.contactTelegram,
-                    onValueChange = viewModel::updateContactTelegram,
-                    label = { Text("Contact Telegram") },
-                    modifier = Modifier.fillMaxWidth(),
+                    value = uiState.time.split(":").getOrElse(1) { "" },
+                    onValueChange = { minutes ->
+                        val parts = uiState.time.split(":")
+                        val newTime = "${parts.getOrElse(0) { "" }}:$minutes"
+                        viewModel.updateTime(newTime)
+                    },
+                    placeholder = { Text("End") },
+                    modifier = Modifier.weight(1f),
                     singleLine = true,
-                    shape = shape
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    shape = MaterialTheme.shapes.small,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = colors.surface,
+                        unfocusedContainerColor = colors.surface
+                    )
                 )
+            }
 
-                Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Category
+            Text(
+                text = "Category",
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.padding(bottom = 4.dp)
+            )
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                listOf("Seniors", "Community", "Education", "Animals", "Environment", "Health").forEach { category ->
+                    FilterChip(
+                        selected = uiState.category == category,
+                        onClick = { viewModel.updateCategory(category) },
+                        label = { Text(category) },
+                        modifier = Modifier.padding(end = 4.dp),
+                        shape = MaterialTheme.shapes.small
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Image URL
+            Text(
+                text = "Image URL",
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.padding(bottom = 4.dp)
+            )
+            OutlinedTextField(
+                value = uiState.image,
+                onValueChange = viewModel::updateImage,
+                placeholder = { Text("Enter image URL") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                shape = MaterialTheme.shapes.small,
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = colors.surface,
+                    unfocusedContainerColor = colors.surface
+                )
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+            // Image URL
+            Text(
+                text = "Spot left",
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.padding(bottom = 4.dp)
+            )
+            OutlinedTextField(
+                value = uiState.spotsLeft,
+                onValueChange = viewModel::updateSpotsLeft,
+                placeholder = { Text("Spot left") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                shape = MaterialTheme.shapes.small,
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = colors.surface,
+                    unfocusedContainerColor = colors.surface
+                )
+            )
+
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Event Title
+            Text(
+                text = "Additional Info",
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.padding(bottom = 4.dp)
+            )
+            OutlinedTextField(
+                value = uiState.additionalInfo,
+                onValueChange = viewModel::updateAdditionalInfo,
+                placeholder = { Text("Enter additional information") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                shape = MaterialTheme.shapes.small,
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = colors.surface,
+                    unfocusedContainerColor = colors.surface
+                )
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            // Event Title
+            Text(
+                text = "Requirement",
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.padding(bottom = 4.dp)
+            )
+            OutlinedTextField(
+                value = uiState.requirements.joinToString(", "),
+                onValueChange = { input ->
+                    val updatedList = input.split(",").map { it.trim() }
+                    viewModel.updateRequirements(updatedList)
+                },
+                placeholder = { Text("Enter requirement information (comma-separated)") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                shape = MaterialTheme.shapes.small,
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = colors.surface,
+                    unfocusedContainerColor = colors.surface
+                )
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Event Title
+            Text(
+                text = "Email Info",
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.padding(bottom = 4.dp)
+            )
+            OutlinedTextField(
+                value = uiState.contactEmail,
+                onValueChange = viewModel::updateContactEmail,
+                placeholder = { Text("Enter Email") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                shape = MaterialTheme.shapes.small,
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = colors.surface,
+                    unfocusedContainerColor = colors.surface
+                )
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Event Title
+            Text(
+                text = "Phone Info",
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.padding(bottom = 4.dp)
+            )
+            OutlinedTextField(
+                value = uiState.contactPhone,
+                onValueChange = viewModel::updateContactPhone,
+                placeholder = { Text("Enter Phone") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                shape = MaterialTheme.shapes.small,
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = colors.surface,
+                    unfocusedContainerColor = colors.surface
+                )
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            // Event Title
+            Text(
+                text = "Telegram Info",
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.padding(bottom = 4.dp)
+            )
+            OutlinedTextField(
+                value = uiState.contactTelegram,
+                onValueChange = viewModel::updateContactTelegram,
+                placeholder = { Text("Enter Telegram handler") },
+                modifier = Modifier.fillMaxWidth(),
+                singleLine = true,
+                shape = MaterialTheme.shapes.small,
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = colors.surface,
+                    unfocusedContainerColor = colors.surface
+                )
+            )
+            Spacer(modifier = Modifier.height(32.dp))
+            // Buttons
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                OutlinedButton(
+                    onClick = { navController.popBackStack() },
+                    modifier = Modifier.weight(1f),
+                    shape = MaterialTheme.shapes.small
+                ) {
+                    Text("Cancel")
+                }
 
                 Button(
                     onClick = viewModel::createEvent,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(52.dp),
+                    modifier = Modifier.weight(1f),
                     enabled = !uiState.isLoading &&
                             uiState.title.isNotEmpty() &&
-                            uiState.subtitle.isNotEmpty() &&
-                            uiState.category.isNotEmpty() &&
+                            uiState.description.isNotEmpty() &&
+                            uiState.location.isNotEmpty() &&
                             uiState.date.isNotEmpty() &&
                             uiState.time.isNotEmpty() &&
-                            uiState.location.isNotEmpty() &&
-                            uiState.spotsLeft.isNotEmpty() &&
-                            uiState.description.isNotEmpty() &&
-                            uiState.contactPhone.isNotEmpty() &&
-                            uiState.contactEmail.isNotEmpty(),
-                    shape = MaterialTheme.shapes.large,
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = colors.primary,
-                        contentColor = colors.onPrimary,
-                        disabledContainerColor = colors.primary.copy(alpha = 0.5f),
-                        disabledContentColor = colors.onPrimary.copy(alpha = 0.5f)
-                    )
+                            uiState.category.isNotEmpty(),
+                    shape = MaterialTheme.shapes.small
                 ) {
                     if (uiState.isLoading) {
                         CircularProgressIndicator(
@@ -267,25 +453,23 @@ fun CreatePostScreen(
                             modifier = Modifier.size(20.dp)
                         )
                     } else {
-                        Text(
-                            "Create Event",
-                            style = MaterialTheme.typography.labelLarge
-                        )
+                        Text("Create Event")
                     }
                 }
-
-                uiState.error?.let { error ->
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Text(
-                        text = error,
-                        color = colors.error,
-                        style = MaterialTheme.typography.bodySmall,
-                        modifier = Modifier.padding(horizontal = 4.dp)
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
             }
+
+            uiState.error?.let { error ->
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = error,
+                    color = colors.error,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.padding(horizontal = 4.dp)
+                )
+            }
+
+
         }
+
     }
-}
+    }
