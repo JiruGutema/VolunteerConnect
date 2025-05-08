@@ -25,6 +25,9 @@ class AuthViewModel @Inject constructor(
     private fun checkToken() {
         viewModelScope.launch {
             isTokenValid = authRepository.verifyToken()
+            print("from jetpack$isTokenValid")
         }
     }
+
+
 }

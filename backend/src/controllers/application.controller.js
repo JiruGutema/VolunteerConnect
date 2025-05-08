@@ -63,7 +63,7 @@ const image = req.file ? `/images/${req.file.filename}` : null;
       "SELECT * FROM events WHERE uuid = ?", 
       [uuid]
     );
-
+    console.log("Event Created Successfully")
     return res.status(StatusCodes.CREATED).json({
       message: "Event created successfully",
       event: {
@@ -273,9 +273,7 @@ async function getEventById(req, res) {
     const baseURL = 'http://localhost:5500/public'; 
     if (applicationData.image) {
       base64Image = await getBase64ImageFromUrl(`${baseURL + applicationData.image}`);
-      if (!base64Image) {
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: "Failed to convert image to Base64" });
-      }
+      
     }
 
     const requirements = applicationData.requirements ? JSON.parse(applicationData.requirements) : null;
@@ -312,6 +310,7 @@ async function getEventById(req, res) {
 
 
 async function getAllEvents(req, res) {
+  console.log("get all events");
   try {
     const [events] = await dbConnection.query("SELECT * FROM events");
 
@@ -322,6 +321,7 @@ async function getAllEvents(req, res) {
 
       let base64Image = null;
       if (imagePath) {
+        console.log("retrieving image from:", imagePath);
         base64Image = await getBase64ImageFromUrl(imagePath);
       }
 

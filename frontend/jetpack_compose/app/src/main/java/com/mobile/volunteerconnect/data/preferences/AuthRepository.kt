@@ -13,6 +13,7 @@ class AuthRepository @Inject constructor(
         return try {
             val token = userPreferences.getToken() ?: return false
             val response = apiService.checkUser("Bearer $token")
+            print(response)
             response.isSuccessful
         } catch (e: Exception) {
             false

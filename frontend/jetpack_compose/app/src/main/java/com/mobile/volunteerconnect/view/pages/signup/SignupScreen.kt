@@ -185,7 +185,7 @@ fun SignupScreen(
         Spacer(Modifier.height(16.dp))
 
         // Login Link
-        
+
         TextButton(
             onClick = onLoginClick,
             modifier = Modifier.align(Alignment.CenterHorizontally)

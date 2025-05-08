@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 
 const storage = multer.diskStorage({
+  
   destination: function (req, file, cb) {
     const uploadPath = path.join(__dirname, '..', 'public', 'images');
     fs.mkdirSync(uploadPath, { recursive: true });
@@ -13,7 +14,7 @@ const storage = multer.diskStorage({
     cb(null, uniqueName);
   }
 });
-
+console.log("saving image to public");
 const upload = multer({ storage });
 
 function saveImageToPublic(req, res, next) {
