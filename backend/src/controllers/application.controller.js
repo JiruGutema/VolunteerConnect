@@ -255,7 +255,7 @@ async function getEventById(req, res) {
     const userId = decoded.userid;
     const userRole = decoded.role;
 
-    const { id } = req.params;
+    const id = req.params.id;
 
     const [application] = await dbConnection.query(
       "SELECT * FROM  events WHERE id = ?", 
@@ -314,7 +314,7 @@ async function getAllEvents(req, res) {
   console.log("get all events");
   try {
     const [events] = await dbConnection.query("SELECT * FROM events");
-
+    console.log(events)
     const baseURL = "http://localhost:5500/public";
 
     const parsedEvents = await Promise.all(events.map(async (event) => {
@@ -343,6 +343,8 @@ async function getAllEvents(req, res) {
     });
   }
 }
+
+
 async function getOrganizationEvents(req, res) {
   const authHeader = req.headers.authorization;
   

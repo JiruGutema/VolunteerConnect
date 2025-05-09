@@ -2,7 +2,8 @@ const { StatusCodes } = require("http-status-codes")
 const jwt = require("jsonwebtoken")
 
 
-async function authMiddleware(req,res,next){  
+async function authMiddleware(req,res,next){ 
+    console.log("middle ware") 
     const authHeader = req.headers.authorization
     console.log("authHeader",authHeader)
     if(!authHeader || !authHeader.startsWith("Bearer ")){
